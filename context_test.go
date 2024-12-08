@@ -27,8 +27,8 @@ import (
 	"time"
 
 	"github.com/gin-contrib/sse"
-	"github.com/gin-gonic/gin/binding"
-	testdata "github.com/gin-gonic/gin/testdata/protoexample"
+	"github.com/pckhoi/gin/binding"
+	testdata "github.com/pckhoi/gin/testdata/protoexample"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/proto"
@@ -546,7 +546,7 @@ func TestContextHandlerName(t *testing.T) {
 	c, _ := CreateTestContext(httptest.NewRecorder())
 	c.handlers = HandlersChain{func(c *Context) {}, handlerNameTest}
 
-	assert.Regexp(t, "^(.*/vendor/)?github.com/gin-gonic/gin.handlerNameTest$", c.HandlerName())
+	assert.Regexp(t, "^(.*/vendor/)?github.com/pckhoi/gin.handlerNameTest$", c.HandlerName())
 }
 
 func TestContextHandlerNames(t *testing.T) {
@@ -557,7 +557,7 @@ func TestContextHandlerNames(t *testing.T) {
 
 	assert.Len(t, names, 4)
 	for _, name := range names {
-		assert.Regexp(t, `^(.*/vendor/)?(github\.com/gin-gonic/gin\.){1}(TestContextHandlerNames\.func.*){0,1}(handlerNameTest.*){0,1}`, name)
+		assert.Regexp(t, `^(.*/vendor/)?(github\.com/pckhoi/gin\.){1}(TestContextHandlerNames\.func.*){0,1}(handlerNameTest.*){0,1}`, name)
 	}
 }
 
@@ -613,7 +613,7 @@ func TestContextQuery(t *testing.T) {
 }
 
 func TestContextInitQueryCache(t *testing.T) {
-	validURL, err := url.Parse("https://github.com/gin-gonic/gin/pull/3969?key=value&otherkey=othervalue")
+	validURL, err := url.Parse("https://github.com/pckhoi/gin/pull/3969?key=value&otherkey=othervalue")
 	require.NoError(t, err)
 
 	tests := []struct {
