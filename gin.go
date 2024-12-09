@@ -12,6 +12,7 @@ import (
 	"os"
 	"path"
 	"regexp"
+	"runtime/debug"
 	"strings"
 	"sync"
 
@@ -714,6 +715,9 @@ func (engine *Engine) handleHTTPRequest(c *Context) {
 var mimePlain = []string{MIMEPlain}
 
 func serveError(c *Context, code int, defaultMessage []byte) {
+	if code == http.StatusNotFound {
+		debugPrint("404 trace:\n%s", string(debug.Stack()))
+	}
 	c.writermem.status = code
 	c.Next()
 	if c.writermem.Written() {
