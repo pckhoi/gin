@@ -63,13 +63,13 @@ func (w *responseWriter) reset(writer http.ResponseWriter) {
 }
 
 func (w *responseWriter) WriteHeader(code int) {
-	if code == http.StatusNotFound {
-		debug.PrintStack()
-	}
 	if code > 0 && w.status != code {
 		if w.Written() {
 			debugPrint("[WARNING] Headers were already written. Wanted to override status code %d with %d", w.status, code)
 			return
+		}
+		if code == http.StatusNotFound {
+			debugPrint("404 trace:\n%s", string(debug.Stack()))
 		}
 		w.status = code
 	}
